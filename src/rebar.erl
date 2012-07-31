@@ -53,6 +53,7 @@
 %% ====================================================================
 
 load_all_rebar_modules() ->
+    ?CONSOLE("rebar.beam at ~p~n", [code:which(rebar)]),
     EbinDir = filename:join(code:lib_dir(rebar), "ebin"),
     {ok, Mods} = erl_prim_loader:list_dir(EbinDir),
     lists:foreach(fun(Beam) ->
