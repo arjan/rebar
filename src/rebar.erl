@@ -57,6 +57,7 @@ load_all_rebar_modules() ->
     {ok, Mods} = erl_prim_loader:list_dir(EbinDir),
     lists:foreach(fun(Beam) ->
                           Mod = list_to_atom(filename:rootname(Beam)),
+                          ?CONSOLE("LOAD ~p~n", [Mod]),
                           {module, Mod} = code:ensure_loaded(Mod)
                   end, Mods).
 
