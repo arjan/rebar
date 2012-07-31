@@ -52,7 +52,16 @@
 %% Public API
 %% ====================================================================
 
+load_all_rebar_modules() ->
+    EbinDir = filename:join(code:lib_dir(rebar), "ebin"),
+    {ok, Mods} = erl_prim_loader:list_dir(EbinDir),
+    lists:foreach(fun(Beam) ->
+                          Mod = list_to_atom(filename:rootname(Beam)),
+                          {module, Mod} = code:ensure_loaded(Mod)
+                  end, Mods).
+
 main(Args) ->
+    load_all_rebar_modules(),
     case catch(run(Args)) of
         ok ->
             ok;
