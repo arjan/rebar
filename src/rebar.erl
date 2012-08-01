@@ -52,6 +52,11 @@
 %% Public API
 %% ====================================================================
 
+%% DEBUGTEST to workaround issues of modules missing in action
+%% - mustache.beam missing during eunit in rebar.git
+%% - rebar_file_utils gone missing when building basho_bench
+%% TODO: audit all code:{set,add} calls to make sure we don't
+%% accidentally remove rebar from the code path
 load_all_rebar_modules() ->
     ?CONSOLE("rebar.beam at ~p~n", [code:which(rebar)]),
     EbinDir = filename:dirname(code:which(rebar)),
